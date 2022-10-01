@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Все продукты</title>
+</head>
+<body>
+
+<h2>All available goods</h2>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Number</th>
+    </tr>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.getName()}">text</td>
+        <td th:text="${product.getQuantityInStock().amount}">text</td>
+        <div sec:
+        <td>
+            <form action="write-off-of-goods">
+                <input type="number" max="${item.numberOfItems}" min="0" name="numberToWriteOff"/>
+                <input type="hidden" value="${item.id}" name="itemId"/>
+                <input type="submit" name="Write-Off" value="Write-Off"/>
+            </form>
+        </td>
+    </tr>
+</table>
+<br><br>
+
+<input type="button" value="New Order" onclick="window.location.href = 'new-order'"/>
+<br><br>
+<input type="button" value="Fix Warehouse" onclick="window.location.href = 'fix-warehouse'"/>
+
+</body>
+</html>
