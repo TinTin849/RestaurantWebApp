@@ -22,4 +22,12 @@ public class ProductsService {
     public List<Product> findAll() {
         return productsRepository.findAll();
     }
+
+    @Transactional
+    public void update(int id, Product product) {
+        Product productToBeUpdated = productsRepository.findById(id).get();
+
+        product.setId(id);
+        product.setQuantityInStock(productToBeUpdated.getQuantityInStock());
+    }
 }

@@ -17,12 +17,15 @@
     <tr th:each="product : ${products}">
         <td th:text="${product.getName()}">text</td>
         <td th:text="${product.getQuantityInStock().amount}">text</td>
-        <div sec:
+
         <td>
-            <form action="write-off-of-goods">
-                <input type="number" max="${item.numberOfItems}" min="0" name="numberToWriteOff"/>
-                <input type="hidden" value="${item.id}" name="itemId"/>
-                <input type="submit" name="Write-Off" value="Write-Off"/>
+            <form action="#" th:method="PATCH" th:action="@{/goods/{id}(id=${product.getId()})}" th:object="${product}">
+
+                <input type="number" th:field="*{quantityInStock.amount}"
+                       th:max="*{quantityInStock.amount}" th:min="0" name="numberToWriteOff"/>
+<!--                <input type="hidden" value="${item.id}" name="itemId"/>-->
+
+                <input type="submit" value="Write-Off"/>
             </form>
         </td>
     </tr>
