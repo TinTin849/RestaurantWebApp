@@ -1,0 +1,44 @@
+package com.tintin.restaurantwebapp.controllers;
+
+import com.tintin.restaurantwebapp.models.Product;
+import com.tintin.restaurantwebapp.models.PurchasePrice;
+import com.tintin.restaurantwebapp.services.ProductsService;
+import com.tintin.restaurantwebapp.services.PurchasePricesService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
+@RequestMapping("/orders")
+public class OrdersController {
+
+    private final ProductsService productsService;
+    private final PurchasePricesService purchasePricesService;
+
+    @Autowired
+    public OrdersController(ProductsService productsService, PurchasePricesService purchasePricesService) {
+        this.productsService = productsService;
+        this.purchasePricesService = purchasePricesService;
+    }
+
+    @RequestMapping("/new")
+    public String newOrder(@ModelAttribute("product") Product product
+            , Model model) {
+
+        List<Product> allProducts = productsService.findAll();
+        model.addAttribute("allProducts", allProducts);
+
+        List<PurchasePrice> pricesAndSuppliers = new ArrayList<>();
+        if (product.getId() != -1) {
+            pricesAndSuppliers = purchasePricesService.getSuppliersAndPricesByProductId(product.getId());
+        }
+        model.addAttribute("pricesAndSuppliers", pricesAndSuppliers);
+
+        return "orders/new-order";
+    }
+}

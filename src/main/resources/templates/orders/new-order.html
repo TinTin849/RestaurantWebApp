@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Новый заказ</title>
+</head>
+
+<body>
+
+<h2>New order panel</h2>
+
+<form action="#" th:method="PUSH" th:action="@{order/new}" th:object="${product}">
+  <form:select path="id">
+    <form:option value="-1">--SELECT--</form:option>
+    <c:forEach var="item" items="${allGoods}">
+      <form:option value="${item.id}" name="itemId">${item.name}</form:option>
+    </c:forEach>
+  </form:select>
+
+  <select class="form-control" id="dropDownList">
+    <option value="Ничто">select option</option>
+    <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
+  </select>
+
+  <input type="submit" value="OK">
+</form>
+<br><br>
+
+<table border="1">
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+  </tr>
+  <c:forEach var="chosenSaP" items="${chosenSuppliersAndPrices}">
+    <tr>
+      <td>${chosenSaP.supplier.name}</td>
+      <td>${chosenSaP.price}</td>
+      <td>
+        <form action="new-order/add-order">
+          <input type="number" min="1" name="numberToOrder"/>
+          <input type="hidden" value="${chosenSaP.supplier.id}" name="supplierName">
+          <input type="hidden" value="${chosenSaP.item.id}" name="itemName">
+          <input type="submit" name="order" value="Order"/>
+        </form>
+      </td>
+    </tr>
+  </c:forEach>
+</table>
+<br><br>
+
+<input type="button" value="Show all orders" onclick="window.location.href = 'all-orders'"/>
+<br><br>
+<input type="button" value="Fix Suppliers and Items" onclick="window.location.href = 'fix-suppliers-and-items'"/>
+
+</body>
+
+</html>
