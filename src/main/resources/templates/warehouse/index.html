@@ -14,18 +14,14 @@
         <th>Name</th>
         <th>Number</th>
     </tr>
-    <tr th:each="product : ${products}">
-        <td th:text="${product.getName()}">text</td>
-        <td th:text="${product.getQuantityInStock().amount}">text</td>
+    <tr th:each="element : ${warehouseElements}">
+        <td th:text="${element.getProduct().getName()}">text</td>
+        <td th:text="${element.getAmount()}">text</td>
 
         <td>
-            <form action="#" th:method="PATCH" th:action="@{/goods/{id}(id=${product.getId()})}" th:object="${product}">
-
-                <input type="number" th:field="*{quantityInStock.amount}"
-                       th:max="*{quantityInStock.amount}" th:min="0" name="numberToWriteOff"/>
-<!--                <input type="hidden" value="${item.id}" name="itemId"/>-->
-
-                <input type="submit" value="Write-Off"/>
+            <form action="#" th:method="PATCH" th:action="@{/warehouse/{id}(id=${element.getId()})}" th:object="${element}">
+                <input type="number" name="amount" value="0" th:max="*{getAmount()}" th:min="0"/>
+                <input type="submit" value="Списать"/>
             </form>
         </td>
     </tr>

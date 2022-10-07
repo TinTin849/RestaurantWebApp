@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "warehouse")
-public class QuantityInStock {
+public class ProductInWarehouse {
 
     @Id
     @Column(name = "id")
@@ -18,10 +18,10 @@ public class QuantityInStock {
     @JoinColumn(name = "goods_id", referencedColumnName = "id")
     private Product product;
 
-    public QuantityInStock() {
+    public ProductInWarehouse() {
     }
 
-    public QuantityInStock(int amount, Product product) {
+    public ProductInWarehouse(int amount, Product product) {
         this.amount = amount;
     }
 

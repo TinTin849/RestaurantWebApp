@@ -27,7 +27,7 @@ public class Product {
 
     @OneToOne(mappedBy = "product")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    private QuantityInStock quantityInStock;
+    private ProductInWarehouse productInWarehouse;
 
     public Product() {
     }
@@ -68,12 +68,12 @@ public class Product {
         this.purchasePrices = purchasePrices;
     }
 
-    public QuantityInStock getQuantityInStock() {
-        return quantityInStock;
+    public ProductInWarehouse getQuantityInStock() {
+        return productInWarehouse;
     }
 
-    public void setQuantityInStock(QuantityInStock quantityInStock) {
-        this.quantityInStock = quantityInStock;
+    public void setQuantityInStock(ProductInWarehouse productInWarehouse) {
+        this.productInWarehouse = productInWarehouse;
     }
 
     @Override

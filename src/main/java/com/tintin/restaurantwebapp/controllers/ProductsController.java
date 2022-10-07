@@ -23,20 +23,20 @@ public class ProductsController {
         this.productsService = productsService;
     }
 
-    @GetMapping()
-    public String index(Model model) {
-        List<Product> allProducts = productsService.findAll();
-
-        model.addAttribute("products", allProducts);
-
-        return "products/index";
-    }
-
-    @RequestMapping("/{id}")
-    public String update(@ModelAttribute("product") Product product,
-                         @PathVariable("id") int id) {
-        productsService.update(id, product);
-
-        return "redirect:/goods";
-    }
+//    @GetMapping()
+//    public String index(Model model) {
+//        List<Product> allProducts = productsService.findAll();
+//
+//        model.addAttribute("products", allProducts);
+//
+//        return "products/index";
+//    }
+//
+//    @RequestMapping("/{id}")
+//    public String update(@ModelAttribute("product") Product product,
+//                         @PathVariable("id") int id) {
+//        productsService.update(id, product);
+//
+//        return "redirect:/goods";
+//    }
 }
