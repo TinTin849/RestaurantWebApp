@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Новый заказ</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Новый заказ</title>
 </head>
 
 <body>
@@ -11,43 +11,42 @@
 <h2>New order panel</h2>
 
 <form action="#" th:method="PUSH" th:action="@{order/new}" th:object="${product}">
-  <select th:field="*{id}">
-    <option value="-1">--SELECT--</option>
-    <option th:each="element : ${allProducts}"
-            th:value="${element.id}"
-            th:text="${name}">
-      ELEMENT
-    </option>
-  </select>
-  <input type="submit" value="OK">
+    <select th:field="*{id}">
+        <option value="-1">--SELECT--</option>
+        <option th:each="element : ${allProducts}"
+                th:value="${element.id}"
+                th:text="${name}">
+            ELEMENT
+        </option>
+    </select>
+    <input type="submit" value="OK">
 </form>
 <br><br>
 
 
-
-<table th:if="${!chosenSuppliersAndPrices.isEmpty()}" border="1">
-  <tr>
-    <th>Name</th>
-    <th>Price</th>
-  </tr>
-    <tr th:each="supplierAndPrice : ${chosenSuppliersAndPrices}">
-      <td th:text="${supplierAndPrice.getSupplier().name}"></td>
-      <td th:text="${supplierAndPrice.price}"></td>
-      <td>
-        <form th:method="PUSH" th:action="@{order/add}" th:object="${newOrder}">
-          <input th:field="*{quantityOfGoods}"
-                 type="number"
-                 min="1"
-                 name="numberToOrder"/>
-          <input th:field="*{supplier.id}" type="hidden"
-                 th:value="${supplierAndPrice.getSupplier().id}"
-                 name="supplierName">
-          <input th:field="*{product.id}" type="hidden"
-                 th:value="${supplierAndPrice.getProduct().id}"
-                 name="itemName">
-          <input type="submit" name="order" value="Order"/>
-        </form>
-      </td>
+<table th:if="${!pricesAndSuppliers.isEmpty()}" border="1">
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+    </tr>
+    <tr th:each="supplierAndPrice : ${pricesAndSuppliers}">
+        <td th:text="*{supplierAndPrice.getSupplier().name}"></td>
+        <td th:text="${supplierAndPrice.price}"></td>
+        <td>
+            <form th:method="PUSH" th:action="@{order/add}" th:object="${newOrder}">
+                <input th:field="*{quantityOfGoods}"
+                       type="number"
+                       min="1"
+                       name="numberToOrder"/>
+                <input th:field="*{supplier.id}" type="hidden"
+                       th:value="${supplierAndPrice.getSupplier().id}"
+                       name="supplier">
+                <input th:field="*{product.id}" type="hidden"
+                       th:value="${supplierAndPrice.product.id}"
+                       name="item">
+                <input type="submit" name="order" value="Order"/>
+            </form>
+        </td>
     </tr>
 </table>
 <br><br>
