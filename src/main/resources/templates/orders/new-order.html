@@ -11,41 +11,44 @@
 <h2>New order panel</h2>
 
 <form action="#" th:method="PUSH" th:action="@{order/new}" th:object="${product}">
-  <form:select path="id">
-    <form:option value="-1">--SELECT--</form:option>
-    <c:forEach var="item" items="${allGoods}">
-      <form:option value="${item.id}" name="itemId">${item.name}</form:option>
-    </c:forEach>
-  </form:select>
-
-  <select class="form-control" id="dropDownList">
-    <option value="Ничто">select option</option>
-    <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
+  <select th:field="*{id}">
+    <option value="-1">--SELECT--</option>
+    <option th:each="element : ${allProducts}"
+            th:value="${element.id}"
+            th:text="${name}">
+      ELEMENT
+    </option>
   </select>
-
   <input type="submit" value="OK">
 </form>
 <br><br>
 
-<table border="1">
+
+
+<table th:if="${!chosenSuppliersAndPrices.isEmpty()}" border="1">
   <tr>
     <th>Name</th>
     <th>Price</th>
   </tr>
-  <c:forEach var="chosenSaP" items="${chosenSuppliersAndPrices}">
-    <tr>
-      <td>${chosenSaP.supplier.name}</td>
-      <td>${chosenSaP.price}</td>
+    <tr th:each="supplierAndPrice : ${chosenSuppliersAndPrices}">
+      <td th:text="${supplierAndPrice.getSupplier().name}"></td>
+      <td th:text="${supplierAndPrice.price}"></td>
       <td>
-        <form action="new-order/add-order">
-          <input type="number" min="1" name="numberToOrder"/>
-          <input type="hidden" value="${chosenSaP.supplier.id}" name="supplierName">
-          <input type="hidden" value="${chosenSaP.item.id}" name="itemName">
+        <form th:method="PUSH" th:action="@{order/add}" th:object="${newOrder}">
+          <input th:field="*{quantityOfGoods}"
+                 type="number"
+                 min="1"
+                 name="numberToOrder"/>
+          <input th:field="*{supplier.id}" type="hidden"
+                 th:value="${supplierAndPrice.getSupplier().id}"
+                 name="supplierName">
+          <input th:field="*{product.id}" type="hidden"
+                 th:value="${supplierAndPrice.getProduct().id}"
+                 name="itemName">
           <input type="submit" name="order" value="Order"/>
         </form>
       </td>
     </tr>
-  </c:forEach>
 </table>
 <br><br>
 

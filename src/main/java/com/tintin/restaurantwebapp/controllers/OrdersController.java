@@ -1,5 +1,6 @@
 package com.tintin.restaurantwebapp.controllers;
 
+import com.tintin.restaurantwebapp.models.Order;
 import com.tintin.restaurantwebapp.models.Product;
 import com.tintin.restaurantwebapp.models.PurchasePrice;
 import com.tintin.restaurantwebapp.services.ProductsService;
@@ -33,12 +34,17 @@ public class OrdersController {
         List<Product> allProducts = productsService.findAll();
         model.addAttribute("allProducts", allProducts);
 
-        List<PurchasePrice> pricesAndSuppliers = new ArrayList<>();
+        List<PurchasePrice> chosenSuppliersAndPrices = new ArrayList<>();
         if (product.getId() != -1) {
-            pricesAndSuppliers = purchasePricesService.getSuppliersAndPricesByProductId(product.getId());
+            chosenSuppliersAndPrices = purchasePricesService.getSuppliersAndPricesByProductId(product.getId());
         }
-        model.addAttribute("pricesAndSuppliers", pricesAndSuppliers);
+        model.addAttribute("chosenSuppliersAndPrices", chosenSuppliersAndPrices);
+
+        model.addAttribute("newOrder", new Order());
 
         return "orders/new-order";
     }
+
+    @RequestMapping("/add")
+    public String addOrder()
 }
