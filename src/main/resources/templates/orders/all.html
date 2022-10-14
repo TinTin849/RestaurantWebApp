@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Все заказы</title>
+</head>
+<body>
+
+<h2>Список заказов</h2>
+
+<table border="1">
+    <tr>
+        <th>Дата</th>
+        <th>Товар</th>
+        <th>Количество</th>
+        <th>Стоимость</th>
+        <th>Поставщик</th>
+    </tr>
+    <tr th:each="order : ${allOrders}">
+        <td th:text="${order.creationDate}">text</td>
+        <td th:text="${order.product.name}">text</td>
+        <td th:text="${order.quantityOfGoods}">text</td>
+        <td th:text="${order.fullPrice}">text</td>
+        <td th:text="${order.supplier.name}">text</td>
+    </tr>
+</table>
+<br><br>
+
+<input type="button" value="New Order" onclick="window.location.href = 'orders/new'"/>
+
+</body>
+
+</html>

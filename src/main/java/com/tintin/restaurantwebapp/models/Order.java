@@ -14,7 +14,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Size(min = 1)
+    //@Size(min = 1)
     @Column(name = "quantity_of_goods")
     private int quantityOfGoods;
 

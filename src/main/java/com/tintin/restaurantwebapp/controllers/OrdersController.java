@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -39,7 +40,7 @@ public class OrdersController {
         List<Order> allOrders = ordersService.findAll();
         model.addAttribute("allOrders", allOrders);
 
-        return "orders/all"
+        return "orders/all";
     }
 
     @RequestMapping("/new")
@@ -49,7 +50,7 @@ public class OrdersController {
         model.addAttribute("allProducts", allProducts);
 
         List<PurchasePrice> pricesAndSuppliers = new ArrayList<>();
-        if (product.getId() != -1) {
+        if (product.getId() != -1 && product.getId() != 0) {
             pricesAndSuppliers = purchasePricesService.getSuppliersAndPricesByProductId(product.getId());
         }
         model.addAttribute("pricesAndSuppliers", pricesAndSuppliers);
@@ -59,13 +60,17 @@ public class OrdersController {
     }
 
     @RequestMapping("/add")
-    public String addOrder(@ModelAttribute("order") Order order
+    public String addOrder(@ModelAttribute("newOrder") Order order
             , Model model) {
         Product product = productsService.findById(order.getProduct().getId()).get();
         order.setProduct(product);
 
         Supplier supplier = suppliersService.findById(order.getSupplier().getId()).get();
         order.setSupplier(supplier);
+
+        order.setFullPrice(order.getQuantityOfGoods() * order.getFullPrice());
+
+        order.setCreationDate(new Date());
 
         ordersService.save(order);
 

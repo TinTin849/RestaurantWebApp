@@ -29,6 +29,7 @@ public class OrdersService {
         return ordersRepository.findById(id);
     }
 
+    @Transactional
     public void save(Order order) {
         ordersRepository.save(order);
     }

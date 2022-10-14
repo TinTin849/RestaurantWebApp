@@ -1,8 +1,6 @@
 package com.tintin.restaurantwebapp.controllers;
 
-import com.tintin.restaurantwebapp.models.Product;
 import com.tintin.restaurantwebapp.models.ProductInWarehouse;
-import com.tintin.restaurantwebapp.services.ProductsService;
 import com.tintin.restaurantwebapp.services.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,5 +35,14 @@ public class WarehouseController {
         warehouseService.update(id, product);
 
         return "redirect:/warehouse";
+    }
+
+    @GetMapping("/fix")
+    public String fixWarehouse(Model model) {
+        List<ProductInWarehouse> allProducts = warehouseService.findAll();
+
+        model.addAttribute("warehouseElements", allProducts);
+
+        return "warehouse/fix";
     }
 }
