@@ -25,12 +25,13 @@ public class WarehouseController {
         List<ProductInWarehouse> allProducts = warehouseService.findAll();
 
         model.addAttribute("warehouseElements", allProducts);
+        model.addAttribute("editableElement", new ProductInWarehouse());
 
         return "warehouse/index";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("product") ProductInWarehouse product,
+    public String update(@ModelAttribute("editableElement") ProductInWarehouse product,
                          @PathVariable("id") int id) {
         warehouseService.update(id, product);
 

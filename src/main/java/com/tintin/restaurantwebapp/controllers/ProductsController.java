@@ -5,15 +5,12 @@ import com.tintin.restaurantwebapp.services.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/goods")
+@RequestMapping("/products")
 public class ProductsController {
 
     private final ProductsService productsService;
@@ -23,14 +20,29 @@ public class ProductsController {
         this.productsService = productsService;
     }
 
-//    @GetMapping()
-//    public String index(Model model) {
-//        List<Product> allProducts = productsService.findAll();
-//
-//        model.addAttribute("products", allProducts);
-//
-//        return "products/index";
-//    }
+    @RequestMapping()
+    public String allProducts(Model model) {
+        List<Product> allProducts = productsService.findAll();
+
+        model.addAttribute("products", allProducts);
+        model.addAttribute("newProduct", new Product());
+
+        return "products/all-products";
+    }
+
+    @DeleteMapping()
+    public String deleteProduct(@ModelAttribute() Product product) {
+        productsService.delete(product.getId());
+
+        return "redirect:/products";
+    }
+
+    @RequestMapping("/add")
+    public String addProduct(@ModelAttribute("newProduct") Product product) {
+        productsService.save(product);
+
+        return "redirect:/products";
+    }
 //
 //    @RequestMapping("/{id}")
 //    public String update(@ModelAttribute("product") Product product,

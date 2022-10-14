@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Все поставщики</title>
+</head>
+<body>
+
+<h2>Список поставщиков</h2>
+
+<table border="1">
+    <tr>
+        <th>Поставщик</th>
+        <th>Телефон</th>
+        <th>Адрес</th>
+        <th>Кол-во товаров</th>
+        <th>Кол-во заключённых заказов</th>
+        <th colspan="2">Действие</th>
+    </tr>
+    <tr th:each="supplier : ${suppliers}">
+        <td th:text="${supplier.name}">text</td>
+        <td th:text="${supplier.phone}">text</td>
+        <td th:text="${supplier.address}">text</td>
+        <td th:text="${supplier.purchasePrices.size()}">text</td>
+        <td th:text="${supplier.orders.size()}">text</td>
+        <td>
+            <form action="#" th:method="DELETE" th:action="@{/suppliers}" th:object="${supplier}">
+                <input type="hidden"
+                       name="id"
+                       th:value="${supplier.id}"/>
+                <input type="submit" value="Удалить"/>
+            </form>
+        </td>
+        <td>
+            <a th:href="@{/suppliers/{id}(id=${supplier.id})}">
+                <button type="button">Редактировать</button>
+            </a>
+        </td>
+    </tr>
+</table>
+<br>
+
+<h2>Создание поставщика</h2>
+<form th:method="PUSH" th:action="@{suppliers/add}" th:object="${newSupplier}">
+    <label>Название:
+        <input type="text" th:field="*{name}"/>
+    </label>
+    <br><br>
+    <label>Телефон:
+        <input type="text" th:field="*{phone}"/>
+    </label>
+    <br><br>
+    <label>Адрес:
+        <input type="text" th:field="*{address}"/>
+    </label>
+    <br><br>
+    <input type="submit" value="Создать"/>
+</form>
+<br><br>
+
+<input type="button" value="Страница админа" onclick="window.location.href = '/admin'"/>
+
+</body>
+</html>

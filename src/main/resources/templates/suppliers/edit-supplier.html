@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title th:text="${supplier.name}"></title>
+</head>
+<body>
+
+<h2 th:text="'Работа с ' + ${supplier.name}">Работа с поставщиком</h2>
+
+<form action="#" th:method="POST" th:action="@{/suppliers/add}" th:object="${supplier}">
+    <input type="hidden"
+           name="id"
+           th:value="*{id}"/>
+    <label>Название:
+        <input type="text" th:field="*{name}"/>
+    </label>
+    <br>
+    <label>Телефон:
+        <input type="text" th:field="*{phone}"/>
+    </label>
+    <br>
+    <label>Адрес:
+        <input type="text" th:field="*{address}"/>
+    </label>
+    <br><br>
+    <input type="submit" value="Сохранить данные"/>
+</form>
+<br>
+
+<div th:if="${!supplier.getPurchasePrices().isEmpty()}">
+    <h3>Товары поставщика</h3>
+    <table border="1">
+        <tr>
+            <th>Продукт</th>
+            <th>Стоимость за ед.</th>
+            <th>Действие</th>
+        </tr>
+        <tr th:each="purchasePrice : ${supplier.getPurchasePrices()}">
+            <td th:text="${purchasePrice.product.name}">text</td>
+            <td>
+                <form action="#" th:method="PATCH" th:action="@{/suppliers/product}" th:object="${newPurchasePrice}">
+                    <input type="hidden"
+                           name="id"
+                           th:value="${purchasePrice.id}"/>
+                    <input type="number" th:value="${purchasePrice.price}" id="price" name="price"/>
+                    <input type="submit" value="Обновить"/>
+                </form>
+            </td>
+            <td>
+                <form action="#" th:method="DELETE" th:action="@{/suppliers/product}" th:object="${newPurchasePrice}">
+                    <input type="hidden"
+                           name="supplier.id"
+                           th:value="${purchasePrice.supplier.id}"/>
+                    <input type="hidden"
+                           name="id"
+                           th:value="${purchasePrice.id}"/>
+                    <input type="submit" value="Удалить"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <br>
+</div>
+
+<h3>Начать торговать новым товаром</h3>
+<form action="#" th:method="POST" th:action="@{/suppliers/product}" th:object="${newPurchasePrice}">
+    <label>Продукт
+        <select th:field="*{product.id}">
+            <option th:each="p : ${unusedProducts}"
+                    th:value="${p.id}"
+                    th:text="${p.name}">
+            </option>
+        </select>
+    </label>
+    <label>цена за единицу
+        <input type="number" th:field="*{price}"/>
+    </label>
+    <input type="hidden"
+           name="supplier.id"
+           th:value="${newPurchasePrice.supplier.id}"/>
+    <br><br>
+    <input type="submit" value="Добавить"/>
+</form>
+<br><br>
+
+<input type="button" value="Вернуться к поставщикам" onclick="window.location.href = '/suppliers'"/>
+</body>
+</html>

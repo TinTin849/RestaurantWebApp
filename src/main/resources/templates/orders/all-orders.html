@@ -11,10 +11,10 @@
 
 <table border="1">
     <tr>
-        <th>Дата</th>
-        <th>Товар</th>
+        <th>Дата оформления</th>
+        <th>Наименование товара</th>
         <th>Количество</th>
-        <th>Стоимость</th>
+        <th>Общая стоимость</th>
         <th>Поставщик</th>
     </tr>
     <tr th:each="order : ${allOrders}">
@@ -25,10 +25,11 @@
         <td th:text="${order.supplier.name}">text</td>
     </tr>
 </table>
-<br><br>
+<br>
 
-<input type="button" value="New Order" onclick="window.location.href = 'orders/new'"/>
+<input type="button" value="Новый заказ" onclick="window.location.href = 'orders/new'"/>
+<br><br>
+<input type="button" value="На склад" onclick="window.location.href = '/warehouse'"/>
 
 </body>
-
 </html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Все продукты</title>
+</head>
+<body>
+
+<h2>Список продуктов</h2>
+
+<table border="1">
+    <tr>
+        <th>Наименование</th>
+        <th>Количество поставщиков</th>
+        <th>Действие</th>
+    </tr>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.name}">text</td>
+        <td th:text="${product.purchasePrices.size()}">text</td>
+        <td>
+            <form action="#" th:method="DELETE" th:action="@{/products}" th:object="${product}">
+                <input type="hidden"
+                       name="id"
+                       th:value="${product.id}"/>
+                <input type="submit" value="Удалить"/>
+            </form>
+        </td>
+    </tr>
+</table>
+<br>
+
+<h2>Создание продукта</h2>
+<form th:method="PUSH" th:action="@{products/add}" th:object="${newProduct}">
+    <label>Название продукта
+        <input type="text" th:field="*{name}"/>
+    </label>
+    <br><br>
+    <input type="submit" value="Создать"/>
+</form>
+<br><br>
+
+<input type="button" value="Страница админа" onclick="window.location.href = '/admin'"/>
+
+</body>
+</html>

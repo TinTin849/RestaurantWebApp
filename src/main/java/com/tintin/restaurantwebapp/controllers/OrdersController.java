@@ -40,7 +40,7 @@ public class OrdersController {
         List<Order> allOrders = ordersService.findAll();
         model.addAttribute("allOrders", allOrders);
 
-        return "orders/all";
+        return "orders/all-orders";
     }
 
     @RequestMapping("/new")
@@ -69,9 +69,9 @@ public class OrdersController {
         order.setSupplier(supplier);
 
         order.setFullPrice(order.getQuantityOfGoods() * order.getFullPrice());
-
         order.setCreationDate(new Date());
 
+        productsService.changeAmount(order.getQuantityOfGoods(), order.getProduct().getId());
         ordersService.save(order);
 
         return "redirect:/orders";

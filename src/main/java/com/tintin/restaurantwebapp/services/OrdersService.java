@@ -33,4 +33,8 @@ public class OrdersService {
     public void save(Order order) {
         ordersRepository.save(order);
     }
+
+    public int findNumber() {
+        return (int) ordersRepository.count();
+    }
 }

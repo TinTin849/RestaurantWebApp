@@ -5,58 +5,58 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Новый заказ</title>
 </head>
-
 <body>
 
-<h2>New order panel</h2>
+<h2>Оформление нового заказа</h2>
 
 <form action="#" th:method="PUSH" th:action="@{new}" th:object="${product}">
-    <select th:field="*{id}">
-        <option value="-1">--SELECT--</option>
-        <option th:each="element : ${allProducts}"
-                th:value="${element.id}"
-                th:text="${element.name}">
-            ELEMENT
-        </option>
-    </select>
-    <input type="submit" value="OK">
+    <label>
+        <select th:field="*{id}">
+            <option value="-1">--ВЫБОР ТОВАРА--</option>
+            <option th:each="element : ${allProducts}"
+                    th:value="${element.id}"
+                    th:text="${element.name}">
+            </option>
+        </select>
+    </label>
+    <input type="submit" value="Выбрать">
 </form>
-<br><br>
+<br>
 
+<div th:if="${!pricesAndSuppliers.isEmpty()}">
+    <table  border="1">
+        <tr>
+            <th>Имя товара</th>
+            <th>Стоимость</th>
+        </tr>
+        <tr th:each="supplierAndPrice : ${pricesAndSuppliers}">
+            <td th:text="${supplierAndPrice.supplier.name}"></td>
+            <td th:text="${supplierAndPrice.price}"></td>
+            <td>
+                <form th:method="PUSH" th:action="@{add}" th:object="${newOrder}">
+                    <input type="number"
+                           th:field="*{quantityOfGoods}"
+                           min="1"/>
+                    <input type="hidden"
+                           name="supplier.id"
+                           th:value="${supplierAndPrice.supplier.id}"/>
+                    <input type="hidden"
+                           name="product.id"
+                           th:value="${supplierAndPrice.product.id}">
+                    <input type="hidden"
+                           name="fullPrice"
+                           th:value="${supplierAndPrice.price}"/>
+                    <input type="submit" name="order" value="Заказать"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <br><br>
+</div>
 
-<table th:if="${!pricesAndSuppliers.isEmpty()}" border="1">
-    <tr>
-        <th>Name</th>
-        <th>Price</th>
-    </tr>
-    <tr th:each="supplierAndPrice : ${pricesAndSuppliers}">
-        <td th:text="${supplierAndPrice.supplier.name}"></td>
-        <td th:text="${supplierAndPrice.price}"></td>
-        <td>
-            <form th:method="PUSH" th:action="@{add}" th:object="${newOrder}">
-                <input type="number"
-                       th:field="*{quantityOfGoods}"
-                       min="1"/>
-                <input type="hidden"
-                       name="supplier.id"
-                       th:value="${supplierAndPrice.supplier.id}"/>
-                <input type="hidden"
-                       name="product.id"
-                       th:value="${supplierAndPrice.product.id}">
-                <input type="hidden"
-                       name="fullPrice"
-                       th:value="${supplierAndPrice.price}"/>
-                <input type="submit" name="order" value="Order"/>
-            </form>
-        </td>
-    </tr>
-</table>
+<input type="button" value="Все заказы" onclick="window.location.href = '/orders'"/>
 <br><br>
-
-<input type="button" value="Show all orders" onclick="window.location.href = 'orders'"/>
-<br><br>
-<input type="button" value="Fix Suppliers and Items" onclick="window.location.href = 'fix-suppliers-and-items'"/>
+<input type="button" value="Страница администратора" onclick="window.location.href = '/admin'"/>
 
 </body>
-
 </html>

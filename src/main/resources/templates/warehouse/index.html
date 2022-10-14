@@ -7,30 +7,28 @@
 </head>
 <body>
 
-<h2>All available goods</h2>
+<h2>Продукты на складе</h2>
 
 <table border="1">
     <tr>
-        <th>Name</th>
-        <th>Number</th>
+        <th>Наименование</th>
+        <th>В наличии</th>
+        <th>К списанию</th>
     </tr>
     <tr th:each="element : ${warehouseElements}">
         <td th:text="${element.getProduct().getName()}">text</td>
         <td th:text="${element.getAmount()}">text</td>
-
         <td>
-            <form action="#" th:method="PATCH" th:action="@{/warehouse/{id}(id=${element.getId()})}" th:object="${element}">
-                <input type="number" th:name="*{amount}" value="0" th:max="*{getAmount()}" th:min="0"/>
-                <input type="submit" value="Списать"/>
+            <form action="#" th:method="PATCH" th:action="@{/warehouse/{id}(id=${element.getId()})}" th:object="${editableElement}">
+                <input type="number" th:field="*{amount}" th:max="${element.getAmount()}" th:min="0"/>
+                <input type="submit" value="-"/>
             </form>
         </td>
     </tr>
 </table>
-<br><br>
+<br>
 
-<input type="button" value="New Order" onclick="window.location.href = 'orders/new'"/>
-<br><br>
-<input type="button" value="Fix Warehouse" onclick="window.location.href = 'warehouse/fix'"/>
+<input type="button" value="Заказать продукт" onclick="window.location.href = 'orders/new'"/>
 
 </body>
 </html>

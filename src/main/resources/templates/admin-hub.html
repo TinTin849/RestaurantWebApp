@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Администрирование</title>
+</head>
+<body>
+
+<h2>Домик руководства</h2>
+
+<h3 th:text="'Поставщиков: ' + ${numberOfSuppliers}"></h3>
+<h3 th:text="'Видов продуктов: ' + ${numberOfProducts}"></h3>
+<h3 th:text="'Сформированных заказов: ' + ${numberOfOrders}"></h3>
+<br>
+
+<input type="button" value="Работать с продуктами" onclick="window.location.href = 'products'"/>
+<br><br>
+<input type="button" value="Работать с поставщиками" onclick="window.location.href = 'suppliers'"/>
+
+</body>
+</html>
