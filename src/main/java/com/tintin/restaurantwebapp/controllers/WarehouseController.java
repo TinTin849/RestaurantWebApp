@@ -3,6 +3,7 @@ package com.tintin.restaurantwebapp.controllers;
 import com.tintin.restaurantwebapp.models.ProductInWarehouse;
 import com.tintin.restaurantwebapp.services.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,7 @@ public class WarehouseController {
         return "redirect:/warehouse";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/fix")
     public String fixWarehouse(Model model) {
         List<ProductInWarehouse> allProducts = warehouseService.findAll();

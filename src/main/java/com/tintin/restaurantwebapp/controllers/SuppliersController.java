@@ -7,6 +7,7 @@ import com.tintin.restaurantwebapp.services.ProductsService;
 import com.tintin.restaurantwebapp.services.PurchasePricesService;
 import com.tintin.restaurantwebapp.services.SuppliersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +40,7 @@ public class SuppliersController {
         return "suppliers/all-suppliers";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping()
     public String deleteSupplier(@ModelAttribute() Supplier supplier) {
         suppliersService.delete(supplier.getId());
@@ -53,6 +55,7 @@ public class SuppliersController {
         return "redirect:/suppliers";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping("/{id}")
     public String editSupplier(@PathVariable("id") int id
             , Model model) {
@@ -69,6 +72,7 @@ public class SuppliersController {
         return "suppliers/edit-supplier";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PatchMapping("/product")
     public String updatePrice(@ModelAttribute PurchasePrice purchasePrice) {
 
@@ -81,6 +85,7 @@ public class SuppliersController {
         return "redirect:/suppliers/" + purchasePrice.getSupplier().getId();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/product")
     public String deleteProductFromSupplier(@ModelAttribute PurchasePrice purchasePrice) {
         int idToBeDeleted = purchasePrice.getId();
@@ -90,6 +95,7 @@ public class SuppliersController {
         return "redirect:/suppliers/" + purchasePrice.getSupplier().getId();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/product")
     public String addProductToSupplier(@ModelAttribute("newPurchasePrice") PurchasePrice purchasePrice) {
         Product product = productsService.findById(purchasePrice.getProduct().getId()).get();

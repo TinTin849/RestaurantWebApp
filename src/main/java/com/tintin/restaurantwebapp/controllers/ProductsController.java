@@ -1,8 +1,10 @@
 package com.tintin.restaurantwebapp.controllers;
 
 import com.tintin.restaurantwebapp.models.Product;
+import com.tintin.restaurantwebapp.models.ProductInWarehouse;
 import com.tintin.restaurantwebapp.services.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +32,7 @@ public class ProductsController {
         return "products/all-products";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping()
     public String deleteProduct(@ModelAttribute() Product product) {
         productsService.delete(product.getId());
@@ -39,11 +42,13 @@ public class ProductsController {
 
     @RequestMapping("/add")
     public String addProduct(@ModelAttribute("newProduct") Product product) {
+        product.setQuantityInStock(new ProductInWarehouse());
+        product.getQuantityInStock().setAmount(0);
         productsService.save(product);
 
         return "redirect:/products";
     }
-//
+
 //    @RequestMapping("/{id}")
 //    public String update(@ModelAttribute("product") Product product,
 //                         @PathVariable("id") int id) {

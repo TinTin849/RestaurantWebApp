@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -16,7 +17,7 @@
         <th>Адрес</th>
         <th>Кол-во товаров</th>
         <th>Кол-во заключённых заказов</th>
-        <th colspan="2">Действие</th>
+        <th colspan="2" sec:authorize="hasRole('ROLE_ADMIN')">Действие</th>
     </tr>
     <tr th:each="supplier : ${suppliers}">
         <td th:text="${supplier.name}">text</td>
@@ -24,7 +25,7 @@
         <td th:text="${supplier.address}">text</td>
         <td th:text="${supplier.purchasePrices.size()}">text</td>
         <td th:text="${supplier.orders.size()}">text</td>
-        <td>
+        <td sec:authorize="hasRole('ROLE_ADMIN')">
             <form action="#" th:method="DELETE" th:action="@{/suppliers}" th:object="${supplier}">
                 <input type="hidden"
                        name="id"
@@ -32,7 +33,7 @@
                 <input type="submit" value="Удалить"/>
             </form>
         </td>
-        <td>
+        <td sec:authorize="hasRole('ROLE_ADMIN')">
             <a th:href="@{/suppliers/{id}(id=${supplier.id})}">
                 <button type="button">Редактировать</button>
             </a>
@@ -57,9 +58,11 @@
     <br><br>
     <input type="submit" value="Создать"/>
 </form>
-<br><br>
 
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+<br><br>
 <input type="button" value="Страница админа" onclick="window.location.href = '/admin'"/>
+</div>
 
 </body>
 </html>
