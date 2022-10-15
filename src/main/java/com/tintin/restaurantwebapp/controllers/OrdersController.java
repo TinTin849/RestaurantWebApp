@@ -28,7 +28,8 @@ public class OrdersController {
     private final SuppliersService suppliersService;
 
     @Autowired
-    public OrdersController(ProductsService productsService, PurchasePricesService purchasePricesService, OrdersService ordersService, SuppliersService suppliersService) {
+    public OrdersController(ProductsService productsService, PurchasePricesService purchasePricesService
+            , OrdersService ordersService, SuppliersService suppliersService) {
         this.productsService = productsService;
         this.purchasePricesService = purchasePricesService;
         this.ordersService = ordersService;

@@ -4,19 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Администрирование</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-<h2>Домик руководства</h2>
+<div class="page-header">
+    <h2>Домик руководства</h2>
+</div>
 
-<h3 th:text="'Поставщиков: ' + ${numberOfSuppliers}"></h3>
-<h3 th:text="'Видов продуктов: ' + ${numberOfProducts}"></h3>
-<h3 th:text="'Сформированных заказов: ' + ${numberOfOrders}"></h3>
-<br>
+<!--<h3 th:text="'Поставщиков: ' + ${numberOfSuppliers}"></h3>-->
+<button type="button" class="btn btn-primary btn-lg" onclick="window.location.href = 'suppliers'">
+    Поставщики <span class="badge" th:text="${numberOfSuppliers}"></span>
+</button>
+<button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'products'">
+    Продукты <span class="badge" th:text="${numberOfProducts}"></span>
+</button>
+<button type="button" class="btn btn-warning btn-lg" onclick="window.location.href = 'orders'">
+    Заказы <span class="badge" th:text="${numberOfOrders}"></span>
+</button>
+<!--<br>-->
 
-<input type="button" value="Работать с продуктами" onclick="window.location.href = 'products'"/>
-<br><br>
-<input type="button" value="Работать с поставщиками" onclick="window.location.href = 'suppliers'"/>
+<!--<input type="button" value="Работать с продуктами" onclick="window.location.href = 'products'"/>-->
+<!--<br><br>-->
+<!--<input type="button" value="Работать с поставщиками" onclick="window.location.href = 'suppliers'"/>-->
 
 </body>
 </html>

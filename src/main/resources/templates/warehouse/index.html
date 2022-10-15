@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Все продукты</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-<h2>Продукты на складе</h2>
+<div class="page-header">
+    <h2>Продукты на складе</h2>
+</div>
 
-<table border="1">
+<table class="table table-striped">
     <tr>
         <th>Наименование</th>
         <th>В наличии</th>
@@ -21,14 +27,13 @@
         <td>
             <form action="#" th:method="PATCH" th:action="@{/warehouse/{id}(id=${element.getId()})}" th:object="${editableElement}">
                 <input type="number" th:field="*{amount}" th:max="${element.getAmount()}" th:min="0"/>
-                <input type="submit" value="-"/>
+                <input type="submit" class="btn btn-primary" value="-"/>
             </form>
         </td>
     </tr>
 </table>
-<br>
 
-<input type="button" value="Заказать продукт" onclick="window.location.href = 'orders/new'"/>
+<input type="button" class="btn btn-primary" value="Заказать продукт" onclick="window.location.href = 'orders/new'"/>
 
 </body>
 </html>

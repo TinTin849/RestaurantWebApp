@@ -5,12 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Все поставщики</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-<h2>Список поставщиков</h2>
+<div class="page-header">
+    <h2>Список поставщиков</h2>
+</div>
 
-<table border="1">
+<table class="table table-striped">
     <tr>
         <th>Поставщик</th>
         <th>Телефон</th>
@@ -30,38 +36,43 @@
                 <input type="hidden"
                        name="id"
                        th:value="${supplier.id}"/>
-                <input type="submit" value="Удалить"/>
+                <input type="submit" class="btn btn-primary" value="Удалить"/>
             </form>
         </td>
         <td sec:authorize="hasRole('ROLE_ADMIN')">
             <a th:href="@{/suppliers/{id}(id=${supplier.id})}">
-                <button type="button">Редактировать</button>
+                <button type="button" class="btn btn-primary">Редактировать</button>
             </a>
         </td>
     </tr>
 </table>
-<br>
 
-<h2>Создание поставщика</h2>
+<div class="page-header">
+    <h2>Создание поставщика</h2>
+</div>
+
 <form th:method="PUSH" th:action="@{suppliers/add}" th:object="${newSupplier}">
-    <label>Название:
-        <input type="text" th:field="*{name}"/>
-    </label>
-    <br><br>
-    <label>Телефон:
-        <input type="text" th:field="*{phone}"/>
-    </label>
-    <br><br>
-    <label>Адрес:
-        <input type="text" th:field="*{address}"/>
-    </label>
-    <br><br>
-    <input type="submit" value="Создать"/>
+    <div class="form-group">
+        <label>Название:
+            <input type="text" class="form-control" th:field="*{name}"/>
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Телефон:
+            <input type="text" class="form-control" th:field="*{phone}"/>
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Адрес:
+            <input type="text" class="form-control" th:field="*{address}"/>
+        </label>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Создать"/>
 </form>
 
 <div sec:authorize="hasRole('ROLE_ADMIN')">
-<br><br>
-<input type="button" value="Страница админа" onclick="window.location.href = '/admin'"/>
+    <br/>
+    <input type="button" class="btn btn-primary" value="Страница админа" onclick="window.location.href = '/admin'"/>
 </div>
 
 </body>

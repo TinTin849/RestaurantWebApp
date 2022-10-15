@@ -5,12 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Все продукты</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-<h2>Список продуктов</h2>
+<div class="page-header">
+    <h2>Список продуктов</h2>
+</div>
 
-<table border="1">
+<table class="table table-striped">
     <tr>
         <th>Наименование</th>
         <th>Количество поставщиков</th>
@@ -24,25 +30,30 @@
                     <input type="hidden"
                            name="id"
                            th:value="${product.id}"/>
-                    <input type="submit" value="Удалить"/>
+                    <input type="submit" class="btn btn-primary" value="Удалить"/>
                 </form>
             </td>
     </tr>
 </table>
-<br>
 
-<h2>Создание продукта</h2>
+<div class="page-header">
+    <h2>Создание продукта</h2>
+</div>
+
 <form th:method="PUSH" th:action="@{products/add}" th:object="${newProduct}">
-    <label>Название продукта
-        <input type="text" th:field="*{name}"/>
-    </label>
+    <div class="form-group">
+        <label>Название продукта
+            <input type="text" class="form-control" th:field="*{name}"/>
+        </label>
+    </div>
     <br><br>
-    <input type="submit" value="Создать"/>
+    <input type="submit" class="btn btn-primary" value="Создать"/>
 </form>
 <br><br>
 
 <div sec:authorize="hasRole('ROLE_ADMIN')">
-    <input type="button" value="Страница админа" onclick="window.location.href = '/admin'"/>
+    <input type="button" class="btn btn-primary" value="Страница админа" onclick="window.location.href = '/admin'"/>
 </div>
+
 </body>
 </html>

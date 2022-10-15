@@ -5,14 +5,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Новый заказ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-<h2>Оформление нового заказа</h2>
+<div class="page-header">
+    <h2>Оформление нового заказа</h2>
+</div>
+<br/>
 
 <form action="#" th:method="PUSH" th:action="@{new}" th:object="${product}">
     <label>
-        <select th:field="*{id}">
+        <select th:field="*{id}" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
             <option value="-1">--ВЫБОР ТОВАРА--</option>
             <option th:each="element : ${allProducts}"
                     th:value="${element.id}"
@@ -20,15 +27,16 @@
             </option>
         </select>
     </label>
-    <input type="submit" value="Выбрать">
+    <input type="submit" class="btn btn-primary" value="Выбрать">
 </form>
-<br>
+<br/>
 
-<div th:if="${!pricesAndSuppliers.isEmpty()}">
-    <table  border="1">
+<div th:if="${!pricesAndSuppliers.isEmpty()}" >
+    <table class="table table-striped">
         <tr>
-            <th>Имя товара</th>
-            <th>Стоимость</th>
+            <th>Имя поставщика</th>
+            <th>Стоимость единицы</th>
+            <th>Заказ</th>
         </tr>
         <tr th:each="supplierAndPrice : ${pricesAndSuppliers}">
             <td th:text="${supplierAndPrice.supplier.name}"></td>
@@ -47,18 +55,18 @@
                     <input type="hidden"
                            name="fullPrice"
                            th:value="${supplierAndPrice.price}"/>
-                    <input type="submit" name="order" value="Заказать"/>
+                    <input type="submit" class="btn btn-primary" name="order" value="Заказать"/>
                 </form>
             </td>
         </tr>
     </table>
-    <br><br>
 </div>
 
-<input type="button" value="Все заказы" onclick="window.location.href = '/orders'"/>
+<input type="button" class="btn btn-primary" value="Все заказы" onclick="window.location.href = '/orders'"/>
+
 <div sec:authorize="hasRole('ROLE_ADMIN')">
-<br><br>
-<input type="button" value="Страница администратора" onclick="window.location.href = '/admin'"/>
+    <br>
+    <input type="button" class="btn btn-primary" value="Страница администратора" onclick="window.location.href = '/admin'"/>
 </div>
 
 </body>

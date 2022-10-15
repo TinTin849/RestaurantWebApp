@@ -4,34 +4,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title th:text="${supplier.name}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-<h2 th:text="'Работа с ' + ${supplier.name}">Работа с поставщиком</h2>
+<div class="page-header">
+    <h2 th:text="'Работа с ' + ${supplier.name}">Работа с поставщиком</h2>
+</div>
 
 <form action="#" th:method="POST" th:action="@{/suppliers/add}" th:object="${supplier}">
     <input type="hidden"
            name="id"
            th:value="*{id}"/>
+    <div class="form-group">
     <label>Название:
-        <input type="text" th:field="*{name}"/>
+        <input type="text" class="form-control" th:field="*{name}"/>
     </label>
-    <br>
+    </div>
+    <div class="form-group">
     <label>Телефон:
-        <input type="text" th:field="*{phone}"/>
+        <input type="text" class="form-control" th:field="*{phone}"/>
     </label>
-    <br>
+    </div>
+    <div class="form-group">
     <label>Адрес:
-        <input type="text" th:field="*{address}"/>
+        <input type="text" class="form-control" th:field="*{address}"/>
     </label>
-    <br><br>
-    <input type="submit" value="Сохранить данные"/>
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Сохранить данные"/>
 </form>
 <br>
 
 <div th:if="${!supplier.getPurchasePrices().isEmpty()}">
     <h3>Товары поставщика</h3>
-    <table border="1">
+    <table class="table table-striped">
         <tr>
             <th>Продукт</th>
             <th>Стоимость за ед.</th>
@@ -45,7 +55,7 @@
                            name="id"
                            th:value="${purchasePrice.id}"/>
                     <input type="number" th:value="${purchasePrice.price}" id="price" name="price"/>
-                    <input type="submit" value="Обновить"/>
+                    <input type="submit" class="btn btn-primary" value="Обновить"/>
                 </form>
             </td>
             <td>
@@ -56,7 +66,7 @@
                     <input type="hidden"
                            name="id"
                            th:value="${purchasePrice.id}"/>
-                    <input type="submit" value="Удалить"/>
+                    <input type="submit" class="btn btn-primary" value="Удалить"/>
                 </form>
             </td>
         </tr>
@@ -81,10 +91,10 @@
            name="supplier.id"
            th:value="${newPurchasePrice.supplier.id}"/>
     <br><br>
-    <input type="submit" value="Добавить"/>
+    <input type="submit" class="btn btn-primary" value="Добавить"/>
 </form>
 <br><br>
 
-<input type="button" value="Вернуться к поставщикам" onclick="window.location.href = '/suppliers'"/>
+<input type="button" class="btn btn-primary" value="Вернуться к поставщикам" onclick="window.location.href = '/suppliers'"/>
 </body>
 </html>

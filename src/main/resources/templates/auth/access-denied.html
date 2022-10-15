@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Доступ закрыт!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-<h2>У вас нет доступа к этой странице!</h2>
+<div class="jumbotron text-center">
+    <h2>У вас нет доступа к этой странице!</h2>
+</div>
 
-<input type="button" value="Склад ресторана" onclick="window.location.href = '/warehouse'"/>
+<div class="col-sm-4"></div>
+<input type="button" class="btn btn-primary col-sm-4" value="Склад ресторана"
+       onclick="window.location.href = '/warehouse'"/>
+<div class="col-sm-4"></div>
 
 </body>
 </html>
