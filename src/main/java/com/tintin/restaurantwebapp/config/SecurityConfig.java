@@ -39,7 +39,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/auth/login");
+                .logoutSuccessUrl("/auth/login")
+
+                .and()
+                .exceptionHandling().accessDeniedPage("/access-denied");
     }
 
     //Настройка аутентификации
