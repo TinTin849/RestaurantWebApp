@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>Регистрация</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -10,12 +11,16 @@
 </head>
 <body>
 
+<div class="page-header">
+    <h2>Добро пожаловать в семью!</h2>
+</div>
+
 <form th:method="POST" th:action="@{/auth/registration}" th:object="${person}">
     <div class="form-group">
         <label for="username">Введите никнейм пользователя: </label>
         <input type="text" class="form-control" th:field="*{username}" id="username"/>
         <div class="alert alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
-            Username Error
+            Ошибка ввода никнейма
         </div>
     </div>
 
@@ -23,7 +28,7 @@
         <label for="fullname">Введите полное имя пользователя: </label>
         <input type="text" class="form-control" th:field="*{fullname}" id="fullname"/>
         <div class="alert alert-warning" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}">
-            Username Error
+            Ошибка ввода ФИО
         </div>
     </div>
 
@@ -31,7 +36,7 @@
         <label for="password">Введите пароль: </label>
         <input type="password" class="form-control" th:field="*{password}" id="password"/>
         <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
-            Password Error
+            Ошибка ввода пароля
         </div>
     </div>
 

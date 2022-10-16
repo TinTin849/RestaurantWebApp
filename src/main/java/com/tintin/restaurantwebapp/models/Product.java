@@ -20,13 +20,15 @@ public class Product {
     private String name;
 
     @OneToMany(mappedBy = "product")
+    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
     private List<Order> orders;
 
     @OneToMany(mappedBy = "product")
+    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
     private List<PurchasePrice> purchasePrices;
 
     @OneToOne(mappedBy = "product")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.REMOVE})
     private ProductInWarehouse productInWarehouse;
 
     public Product() {

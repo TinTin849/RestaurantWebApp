@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Новый заказ</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -30,6 +31,12 @@
     <input type="submit" class="btn btn-primary" value="Выбрать">
 </form>
 <br/>
+
+<div th:if="${pricesAndSuppliers.isEmpty()}" >
+    <div class="panel panel-warning">
+        <div class="panel-body">Поставщики данного продукта отсутствуют</div>
+    </div>
+</div>
 
 <div th:if="${!pricesAndSuppliers.isEmpty()}" >
     <table class="table table-striped">

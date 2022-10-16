@@ -1,5 +1,7 @@
 package com.tintin.restaurantwebapp.models;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,9 +28,11 @@ public class Supplier {
     private String address;
 
     @OneToMany(mappedBy = "supplier")
+    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
     private List<Order> orders;
 
     @OneToMany(mappedBy = "supplier")
+    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
     private List<PurchasePrice> purchasePrices;
 
     public Supplier() {
