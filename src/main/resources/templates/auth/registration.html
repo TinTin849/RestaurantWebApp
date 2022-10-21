@@ -15,33 +15,41 @@
     <h2>Добро пожаловать в семью!</h2>
 </div>
 
-<form th:method="POST" th:action="@{/auth/registration}" th:object="${person}">
-    <div class="form-group">
-        <label for="username">Введите никнейм пользователя: </label>
-        <input type="text" class="form-control" th:field="*{username}" id="username"/>
-        <div class="alert alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
-            Ошибка ввода никнейма
+<div class="container text-center">
+    <form class="form-horizontal" th:method="POST" th:action="@{/auth/registration}" th:object="${person}">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="username">Введите никнейм пользователя: </label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" th:field="*{username}" id="username"/>
+            </div>
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
+                Ошибка ввода никнейма
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label for="fullname">Введите полное имя пользователя: </label>
-        <input type="text" class="form-control" th:field="*{fullname}" id="fullname"/>
-        <div class="alert alert-warning" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}">
-            Ошибка ввода ФИО
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="fullname">Введите полное имя пользователя: </label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" th:field="*{fullname}" id="fullname"/>
+            </div>
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}">
+                Ошибка ввода ФИО
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label for="password">Введите пароль: </label>
-        <input type="password" class="form-control" th:field="*{password}" id="password"/>
-        <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
-            Ошибка ввода пароля
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="password">Введите пароль: </label>
+            <div class="col-sm-10">
+            <input type="password" class="form-control" th:field="*{password}" id="password"/>
+            </div>
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                Ошибка ввода пароля
+            </div>
         </div>
-    </div>
 
-    <button type="submit" class="btn btn-default">Зарегистрироваться</button>
-</form>
+        <button type="submit" class="btn btn-default">Зарегистрироваться</button>
+    </form>
+</div>
 
 </body>
 </html>
