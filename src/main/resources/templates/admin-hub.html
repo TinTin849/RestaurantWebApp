@@ -25,6 +25,11 @@
 <button type="button" class="btn btn-warning btn-lg" onclick="window.location.href = 'orders'">
     Заказы <span class="badge" th:text="${numberOfOrders}"></span>
 </button>
+<br/><br/>
+
+<form th:action="@{/logout}" th:method="POST">
+    <input type="submit" class="btn btn-primary" value="Выйти из приложения"/>
+</form>
 
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.tintin.restaurantwebapp.services;
 
 import com.tintin.restaurantwebapp.models.Product;
 import com.tintin.restaurantwebapp.repositories.ProductsRepository;
+import com.tintin.restaurantwebapp.repositories.WarehouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,10 +15,12 @@ import java.util.Optional;
 public class ProductsService {
 
     private final ProductsRepository productsRepository;
+    private final WarehouseRepository warehouseRepository;
 
     @Autowired
-    public ProductsService(ProductsRepository productsRepository) {
+    public ProductsService(ProductsRepository productsRepository, WarehouseRepository warehouseRepository) {
         this.productsRepository = productsRepository;
+        this.warehouseRepository = warehouseRepository;
     }
 
     public List<Product> findAll() {
@@ -48,6 +51,8 @@ public class ProductsService {
     @Transactional
     public void save(Product product) {
         productsRepository.save(product);
+        warehouseRepository.save(product.getQuantityInStock());
+        product.getQuantityInStock().setProduct(product);
     }
 
     @Transactional

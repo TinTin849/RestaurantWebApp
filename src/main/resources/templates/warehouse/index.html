@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -36,6 +37,11 @@
 
 <input type="button" class="btn btn-primary" value="Заказать продукт" onclick="window.location.href = 'orders/new'"/>
 <br/><br/>
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <input type="button" class="btn btn-primary" value="Страница админа" onclick="window.location.href = '/admin'"/>
+    <br/><br/>
+</div>
 
 <form th:action="@{/logout}" th:method="POST">
     <input type="submit" class="btn btn-primary" value="Выйти из приложения"/>
